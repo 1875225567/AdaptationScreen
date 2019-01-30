@@ -29,17 +29,10 @@ cc.Class({
         this.verticalConfiguration = [];
         this.multistageArr = [];
         this.childrenArr = [];
-        this.isScreen = true;
 
         let self = this;
         window.addEventListener('orientationchange', function(event){
-            if(self.isScreen){
-                self.startSence();
-                self.isScreen = false;
-            }
-            self.node.scheduleOnce(function(){
-                self.isScreen = true;
-            }, 1);
+            self.startSence();
             // self.setFitSreenMode();
         });
 
@@ -72,6 +65,7 @@ cc.Class({
         cc.log("视图大小",winSize + "\n手机分辨率" + frameSize + "\n屏幕大小",cys);
         if(window.orientation == 180 || window.orientation==0){
             cc.log("竖屏");
+            cc.view.setDesignResolutionSize(750,1334)
             this.generalPurpose(false);
         }
         if(window.orientation == 90 || window.orientation == -90){
@@ -138,16 +132,11 @@ cc.Class({
         let hClone,vClone,vChildren,action;
         let hChildren = this.childrenArr;
         let time = 0.5;
-        let designResolutionSize = cc.view.getDesignResolutionSize();
         for(let i = 0; i < hChildren.length; i++){
             hClone = hChildren[i];
             if(boolen){
-                // cc.view.setDesignResolutionSize(1334,750);
-                cc.view.setDesignResolutionSize(designResolutionSize.height,designResolutionSize.width)
                 vChildren = this.horizontalConfiguration;
             }else{
-                // cc.view.setDesignResolutionSize(750,1334);
-                cc.view.setDesignResolutionSize(designResolutionSize.height,designResolutionSize.width)
                 vChildren = this.verticalConfiguration;
             }
             for(let j = 0; j < vChildren.length; j++){
